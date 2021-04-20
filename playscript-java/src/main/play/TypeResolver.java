@@ -18,6 +18,9 @@ public class TypeResolver extends PlayScriptBaseListener {
     @Override
     public void exitVariableDeclarators(VariableDeclaratorsContext ctx) {
         // 设置变量类型
+        // by lisn: 对于 "int a,b;"
+        // by lisn: type = "int"
+        // by lisn: variableDeclarator = [variableDeclaratorId="a", variableDeclaratorId="b"]
         Type type = (Type) at.typeOfNode.get(ctx.typeType());
 
         for (VariableDeclaratorContext child : ctx.variableDeclarator()) {

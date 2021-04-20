@@ -33,6 +33,7 @@ public class ASTEvaluator extends PlayScriptBaseVisitor<Object> {
 
             for (int i = stack.size()-1; i>0; i--){
                 StackFrame f = stack.get(i);
+                // by lisn: 新入栈的 frame 与该 frame 享有同一个 enclosingScope
                 if (f.scope.enclosingScope == frame.scope.enclosingScope){
                     frame.parentFrame = f.parentFrame;
                     break;
@@ -42,6 +43,7 @@ public class ASTEvaluator extends PlayScriptBaseVisitor<Object> {
                     break;
                 }
                 else if (frame.object instanceof FunctionObject){
+                    // by lisn: 闭包？
                     FunctionObject functionObject = (FunctionObject)frame.object;
                     if (functionObject.receiver != null && functionObject.receiver.enclosingScope == f.scope) {
                         frame.parentFrame = f;

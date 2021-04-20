@@ -1,0 +1,17 @@
+// lisn: 测试下，同一个类的不同的对象是如何找到正确的 parent scope frame 的
+class A {
+	int x = 1;
+	void mtd1() {
+		x = x + 1;
+		println("x=" + x);
+	}
+}
+
+A a1 = A();
+A a2 = A();
+
+// "a1." 的时候，就会把 a1 对应的 ClassObject 放到 frame 里。这样 mtd1() 执行时，就能读取到 a1 的局部变量了！
+a1.mtd1();
+a2.mtd1();
+a1.mtd1();
+a2.mtd1();
